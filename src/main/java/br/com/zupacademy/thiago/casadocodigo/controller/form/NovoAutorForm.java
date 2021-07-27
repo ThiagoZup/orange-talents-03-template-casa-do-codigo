@@ -9,7 +9,7 @@ import br.com.zupacademy.thiago.casadocodigo.controller.validation.UniqueValue;
 import br.com.zupacademy.thiago.casadocodigo.domain.Autor;
 
 public class NovoAutorForm {
-
+	
 	@NotBlank
 	private String nome;
 	
