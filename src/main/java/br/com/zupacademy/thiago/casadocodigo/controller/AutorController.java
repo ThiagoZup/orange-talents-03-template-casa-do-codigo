@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.zupacademy.thiago.casadocodigo.controller.dto.AutorDto;
-import br.com.zupacademy.thiago.casadocodigo.controller.form.AutorForm;
+import br.com.zupacademy.thiago.casadocodigo.controller.form.NovoAutorForm;
 import br.com.zupacademy.thiago.casadocodigo.domain.Autor;
 import br.com.zupacademy.thiago.casadocodigo.repository.AutorRepository;
 
@@ -27,8 +27,8 @@ public class AutorController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<AutorDto> cadastrar(@RequestBody @Valid AutorForm form) {
-		Autor autor = form.converter();
+	public ResponseEntity<AutorDto> cria(@RequestBody @Valid NovoAutorForm form) {
+		Autor autor = form.toModel();
 		repository.save(autor);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(autor.getId()).toUri();
 

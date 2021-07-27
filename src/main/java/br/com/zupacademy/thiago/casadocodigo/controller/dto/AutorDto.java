@@ -10,14 +10,14 @@ public class AutorDto {
 	private String nome;
 	private String email;
 	private String descricao;
-	private LocalDateTime dataCriacao;
+	private LocalDateTime instanteCriacao;
 	
 	public AutorDto(Autor autor) {
 		this.id = autor.getId();
 		this.nome = autor.getNome();
 		this.email = autor.getEmail();
 		this.descricao = autor.getDescricao();
-		this.dataCriacao = autor.getDataCriacao();
+		this.instanteCriacao = autor.getInstanteCriacao();
 	}
 
 	public Long getId() {
@@ -36,8 +36,8 @@ public class AutorDto {
 		return descricao;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
+	public LocalDateTime getInstanteCriacao() {
+		return instanteCriacao;
 	}
 	
 }

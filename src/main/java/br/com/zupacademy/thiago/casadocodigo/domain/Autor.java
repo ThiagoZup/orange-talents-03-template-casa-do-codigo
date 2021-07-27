@@ -9,7 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
@@ -21,25 +21,25 @@ public class Autor {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty
+	@NotBlank
 	private String nome;
 	
-	@NotEmpty
+	@NotBlank
 	@Email
 	@Column(unique=true)
 	private String email;
 	
-	@NotEmpty
+	@NotBlank
 	@Length(max = 400)
 	private String descricao;
 	
 	@NotNull
-	private LocalDateTime dataCriacao = LocalDateTime.now();
+	private LocalDateTime instanteCriacao = LocalDateTime.now();
 	
 	public Autor() {
 	}
 
-	public Autor(@NotEmpty String nome, @NotEmpty @Email String email, @NotEmpty @Length(max = 400) String descricao) {
+	public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank @Length(max = 400) String descricao) {
 		this.nome = nome;
 		this.email = email;
 		this.descricao = descricao;
@@ -61,8 +61,8 @@ public class Autor {
 		return descricao;
 	}
 
-	public LocalDateTime getDataCriacao() {
-		return dataCriacao;
+	public LocalDateTime getInstanteCriacao() {
+		return instanteCriacao;
 	}
 
 	@Override
