@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.zupacademy.thiago.casadocodigo.controller.dto.LivroDto;
 import br.com.zupacademy.thiago.casadocodigo.controller.form.NovoLivroForm;
 import br.com.zupacademy.thiago.casadocodigo.domain.Livro;
 import br.com.zupacademy.thiago.casadocodigo.repository.LivroRepository;
@@ -31,12 +32,12 @@ public class LivroController {
 	
 	@PostMapping
 	@Transactional
-	public ResponseEntity<Void> cria(@RequestBody @Valid NovoLivroForm form) {
+	public ResponseEntity<LivroDto> cria(@RequestBody @Valid NovoLivroForm form) {
 		Livro livro = form.toModel(manager);
 		
 		repository.save(livro);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(livro.getId()).toUri();
 
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).body(new LivroDto(livro));
 	}
 }

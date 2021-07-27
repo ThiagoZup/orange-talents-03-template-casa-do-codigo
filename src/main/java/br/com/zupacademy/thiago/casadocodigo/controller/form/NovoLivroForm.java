@@ -13,6 +13,7 @@ import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import br.com.zupacademy.thiago.casadocodigo.controller.validation.ExistsId;
 import br.com.zupacademy.thiago.casadocodigo.controller.validation.UniqueValue;
 import br.com.zupacademy.thiago.casadocodigo.domain.Autor;
 import br.com.zupacademy.thiago.casadocodigo.domain.Categoria;
@@ -47,9 +48,11 @@ public class NovoLivroForm {
 	private LocalDate dataPublicacao;
 	
 	@NotNull
+	@ExistsId(entityClass = Categoria.class, fieldName = "id", message="ID da categoria não existente no banco de dados")
 	private Long categoriaId;
 	
 	@NotNull
+	@ExistsId(entityClass = Autor.class, fieldName = "id", message="ID do autor não existente no banco de dados")
 	private Long autorId;
 
 	public String getTitulo() {
