@@ -2,6 +2,7 @@ package br.com.zupacademy.thiago.casadocodigo.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,12 +12,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.zupacademy.thiago.casadocodigo.controller.dto.DetalhesSiteLivroDto;
 import br.com.zupacademy.thiago.casadocodigo.controller.dto.ItemLivroDto;
 import br.com.zupacademy.thiago.casadocodigo.controller.dto.LivroDto;
 import br.com.zupacademy.thiago.casadocodigo.controller.form.NovoLivroForm;
@@ -48,6 +51,18 @@ public class LivroController {
 	public ResponseEntity<List<ItemLivroDto>> lista(){
 		List<Livro>  livros = repository.findAll();	
 		
-		return ResponseEntity.ok().body(ItemLivroDto.toModel(livros));
+		return ResponseEntity.ok().body(ItemLivroDto.toDto(livros));
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<DetalhesSiteLivroDto> detalha(@PathVariable Long id){
+		
+		Optional<Livro>  optional = repository.findById(id);
+		if(!optional.isPresent()) {
+			return ResponseEntity.notFound().build();
+		}
+		Livro livro = optional.get();
+		
+		return ResponseEntity.ok().body(new DetalhesSiteLivroDto(livro));
 	}
 }

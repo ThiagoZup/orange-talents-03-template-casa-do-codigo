@@ -23,7 +23,7 @@ public class ItemLivroDto {
 		return titulo;
 	}
 
-	public static List<ItemLivroDto> toModel(List<Livro> livros) {
+	public static List<ItemLivroDto> toDto(List<Livro> livros) {
 		return livros.stream().map(ItemLivroDto::new).collect(Collectors.toList());
 	}
 }
