@@ -18,7 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.zupacademy.thiago.casadocodigo.controller.dto.NovoEstadoDto;
 import br.com.zupacademy.thiago.casadocodigo.controller.form.NovoEstadoForm;
 import br.com.zupacademy.thiago.casadocodigo.domain.Estado;
-import br.com.zupacademy.thiago.casadocodigo.exception.StandardError;
+import br.com.zupacademy.thiago.casadocodigo.exception.FieldMessage;
 
 @RestController
 @RequestMapping("/estados")
@@ -34,7 +34,7 @@ public class EstadoController {
 		
 		List<Estado> estadoRepetido = manager.createQuery("SELECT x FROM Estado x WHERE x.nome = :nome AND x.pais = :pais", Estado.class).setParameter("nome", estado.getNome()).setParameter("pais", estado.getPais()).getResultList();
 		if(estadoRepetido.size() > 0) {
-			return ResponseEntity.badRequest().body(new StandardError("nome", "Estado já existente para esse país"));
+			return ResponseEntity.badRequest().body(new FieldMessage("nome", "Estado já existente para esse país"));
 		}
 		manager.persist(estado);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(estado.getId()).toUri();

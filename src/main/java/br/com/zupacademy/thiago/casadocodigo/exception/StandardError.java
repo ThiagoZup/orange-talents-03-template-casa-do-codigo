@@ -2,22 +2,33 @@ package br.com.zupacademy.thiago.casadocodigo.exception;
 
 public class StandardError {
 
-	private String campo;
-	private String mensagem;
+	private Long timestamp;
+	private Integer status;
+	private String message;
+	private String path;
 	
-	public StandardError(String campo, String mensagem) {
+	public StandardError(Long timestamp, Integer status, String error, String message) {
 		super();
-		this.campo = campo;
-		this.mensagem = mensagem;
+		this.timestamp = timestamp;
+		this.status = status;
+		this.message = error;
+		this.path = message;
 	}
 
-	public String getCampo() {
-		return campo;
+	public Long getTimestamp() {
+		return timestamp;
 	}
 
-	public String getMensagem() {
-		return mensagem;
+	public Integer getStatus() {
+		return status;
 	}
-	
+
+	public String getError() {
+		return message;
+	}
+
+	public String getMessage() {
+		return path;
+	}
 	
 }
